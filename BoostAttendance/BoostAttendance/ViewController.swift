@@ -2,18 +2,21 @@
 //  ViewController.swift
 //  BoostAttendance
 //
-//  Created by 이지수 on 2021/09/23.
+//  Created by 이나정 on 2021/09/23.
 //
 
 import UIKit
+import FirebaseDatabase
 
 class ViewController: UIViewController {
 
+    var ref: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        ref = Database.database().reference()
+        
+        self.ref.child("Attendance")
     }
-
-
 }
 

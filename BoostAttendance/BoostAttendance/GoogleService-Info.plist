@@ -19,16 +19,16 @@
 	<key>STORAGE_BUCKET</key>
 	<string>bookathon-boostattendance.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:131293816969:ios:1d5b50f79ae5c523ca7e58</string>
+	<string>1:131293816969:ios:52d91227e4854f2eca7e58</string>
 </dict>
 </plist>
