@@ -22,6 +22,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
     @IBOutlet weak var myAbsence: UILabel?
     
     private var camperId: String? = nil
+    private var rollBook: [QueryDocumentSnapshot]? = nil
     
     let db = Firestore.firestore()
     
@@ -75,44 +76,53 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
     private func bringCalender() -> Void {
         guard let camperId = camperId else { return }
         
-        self.db.collection("AttendanceDetail").whereField("CamperId", isEqualTo: camperId).getDocuments(completion: { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                let checkView = UIView(frame: CGRect.zero)
-                for document in querySnapshot!.documents {
-                    let data = document.data()
-                    var day: Date? = nil
-                    if let date = data["Date"] as? String {
-                         self.db.collection("Date").document(date).getDocument(completion: { (document, error) in
-                             if let document = document, document.exists {
-                                 day = (document.data()?["Date"] as? Timestamp)?.dateValue()
-                             }
-                             if let day = day {
-                                 var check = true
-                                 if (data["CheckInTime"] is Timestamp) {
-                                     self.drawView(date: day, image: "checkin")
-                                 }else{
-                                     check = false
-                                 }
-                                 if (data["CheckOutTime"] is Timestamp) {
-                                     self.drawView(date: day, image: "checkout")
-                                 }else {
-                                     check = false
-                                 }
-                                 if check == false {
-                                     self.drawView(date: day, image: "absent")
-                                 }
-                             }
-                         })
-                    }
+        if self.rollBook != nil {
+            self.drawCalender()
+        } else {
+            self.db.collection("AttendanceDetail").whereField("CamperId", isEqualTo: camperId).getDocuments(completion: { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    self.rollBook = querySnapshot!.documents
+                    self.drawCalender()
                 }
-                self.calendarView.contentView.subviews.first?.addSubview(checkView)
-            }
-        })
+            })
+        }
     }
     
-    private func drawView(date: Date, image: String){
+    private func drawCalender(){
+        guard let rollBook = self.rollBook else { return }
+        for snapshot in rollBook {
+            let data:[String:Any] = snapshot.data()
+            if let date = data["Date"] as? String {
+                var day: Date? = nil
+                self.db.collection("Date").document(date).getDocument(completion: { (document, error) in
+                     if let document = document, document.exists {
+                         day = (document.data()?["Date"] as? Timestamp)?.dateValue()
+                     }
+                     if let day = day {
+                         var check = true
+                         if ((data["CheckInTime"]) is Timestamp) {
+                             self.drawDate(date: day, image: "checkin")
+                         }else{
+                             check = false
+                         }
+                         if (data["CheckOutTime"] is Timestamp) {
+                             self.drawDate(date: day, image: "checkout")
+                         }else {
+                             check = false
+                         }
+                         if check == false {
+                             self.drawDate(date: day, image: "absent")
+                         }
+                     }
+                 })
+            }
+        }
+        
+    }
+    
+    private func drawDate(date: Date, image: String){
         guard let cell = self.calendarView.cell(for: date, at: .current) else { return }
         var frame = CGRect.zero
         frame.size = CGSize(width: 35, height: 35)
@@ -164,5 +174,9 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
                 view.removeFromSuperview()
             }
         }
+    }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        self.drawCalender()
     }
 }
