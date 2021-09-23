@@ -1,7 +1,11 @@
+## 📝 부스트캠프 출석부 조회 앱
 
-## 📝 부스트캠프 출석부 조회 앱 
+| 매일 체크해야 하는 출결관리 | 일일히 확인해야하는 번거로움 |
+| :--------------------: | :------------------:|
+| <img src="https://i.imgur.com/glxiMHT.png" width=350>|<img src="https://user-images.githubusercontent.com/72058473/134458800-65b9c534-aaee-4029-89b3-d7d1dbc56ba5.gif" width=350>|
 
-<img src="https://i.imgur.com/DmU3IRX.png" width=350>
+
+
 
 <br>
 
@@ -23,19 +27,24 @@
 2. 출결사항 통계 기능
 <br>
 
-### 💻 사용 기술/라이브러리
+### 💻  사용 기술/라이브러리
 
-* 슬랙 스레드 크롤링 (https://api.slack.com/)
+* [슬랙 스레드 크롤링](https://api.slack.com/)
 
   boostcamp 멤버십 workspace 내의 check-in-out 으로 접근하는 방법
   
-  crontab
-  
   지정된 시간에 DB로 크롤링 하는 역할
   
+  crontab
+  
   python 사용
+  
+  AWS Lambda
   
 * 크롤링한 데이터 앱으로 표현하기
 
   iOS / Swift
   
+* Firebase
+
+<br>
