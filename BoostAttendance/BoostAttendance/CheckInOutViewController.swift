@@ -31,6 +31,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         deselectDate()
 //        let dateFormatter = DateFormatter()
 //        dateFormatter.dateFormat = "yyyy-MM-dd"
+        calendarView.rowHeight = 50
         calendarView.delegate = self
         calendarView.dataSource = self
         self.camperId = UserDefaults.standard.value(forKey: "myId") as? String
@@ -90,36 +91,50 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
                              if let day = day {
                                  var check = true
                                  if (data["CheckInTime"] is Timestamp) {
-                                     let view = self.drawView(date: day, image: "checkin")
-                                     checkView.addSubview(view)
+                                     self.drawView(date: day, image: "checkin")
                                  }else{
                                      check = false
                                  }
                                  if (data["CheckOutTime"] is Timestamp) {
-                                     let view = self.drawView(date: day, image: "checkout")
-                                     checkView.addSubview(view)
+                                     self.drawView(date: day, image: "checkout")
                                  }else {
                                      check = false
                                  }
                                  if check == false {
-                                     let view = self.drawView(date: day, image: "absent")
-                                     checkView.addSubview(view)
+                                     self.drawView(date: day, image: "absent")
                                  }
                              }
                          })
                     }
                 }
-                self.view.addSubview(checkView)
+                self.calendarView.contentView.subviews.first?.addSubview(checkView)
             }
         })
     }
     
-    private func drawView(date: Date, image: String) -> UIView{
-        let checkInView = UIImageView(frame: self.calendarView.frame(for: date))
+    private func drawView(date: Date, image: String){
+        guard let cell = self.calendarView.cell(for: date, at: .current) else { return }
+        var frame = CGRect.zero
+        frame.size = CGSize(width: 35, height: 35)
+        var x:CGFloat = 8
+        var y: CGFloat = 3
+        switch image {
+        case "checkin":
+            x += 0
+            y += -3
+        case "checkout":
+            x += 4
+            y += 3
+        default:
+            x += 2
+            y += 0
+        }
+        frame.origin = CGPoint(x: frame.origin.x + x, y: frame.origin.y + y)
+        let checkInView = UIImageView(frame: frame)
         if let image = UIImage(named: image){
             checkInView.image = image
         }
-        return checkInView
+        cell.addSubview(checkInView)
     }
     
     func calendarDateColorSetting() {
@@ -141,5 +156,13 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
     func deselectDate() {
         calendarView.today = nil
         calendarView.allowsSelection = false
+    }
+    
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if cell.subviews.count > 1 {
+            for (index, view) in cell.subviews.enumerated() where index != 0 {
+                view.removeFromSuperview()
+            }
+        }
     }
 }
