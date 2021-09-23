@@ -11,7 +11,7 @@ import Firebase
 
 class ViewController: UIViewController {
 
-    let campers = ["S013_김태훈", "S036_이나정", "S045_이지수"]
+    let camperIDList = ["S013_김태훈", "S036_이나정", "S045_이지수"]
     @IBOutlet weak var camperIDPickerView: UITextField!
     
     
@@ -36,27 +36,29 @@ class ViewController: UIViewController {
 }
 
 
-extension ViewController: UITextFieldDelegate, UIPickerViewDelegate {
+extension ViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return campers.count
+        return camperIDList.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return campers[row]
+        return camperIDList[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        camperIDPickerView.text = campers[row]
+        camperIDPickerView.text = camperIDList[row]
+        camperIDPickerView.font = UIFont.systemFont(ofSize: 17)
     }
     
     func createPickerView() {
         let pickerView = UIPickerView()
         pickerView.delegate = self
         camperIDPickerView.inputView = pickerView
+//        self.view.addSubview(camperIDPickerView)
     }
     
     func dismissPickerView() {

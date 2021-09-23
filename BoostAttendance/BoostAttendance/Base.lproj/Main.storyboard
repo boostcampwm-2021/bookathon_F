@@ -28,9 +28,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="if2-B7-YgZ">
-                                <rect key="frame" x="98" y="463" width="218" height="34"/>
+                                <rect key="frame" x="98" y="463" width="218" height="44.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -45,7 +45,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4b-lh-7Nr">
-                                <rect key="frame" x="98" y="514" width="218" height="39"/>
+                                <rect key="frame" x="98" y="522" width="218" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.00036210389230000001" green="0.33336266879999998" blue="0.9842005372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Let's go">
@@ -62,6 +62,9 @@
                                         <color key="value" red="0.00036210389230000001" green="0.33336266879999998" blue="0.9842005372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="15g-Ia-7RM" kind="show" id="eKH-LQ-bat"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -74,6 +77,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="60.869565217391312" y="54.910714285714285"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="4kb-6M-9M9">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="15g-Ia-7RM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TxH-91-8qP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="A2Z-qZ-uML"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AKX-P8-rRo"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1oC-r4-TNn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="838" y="63"/>
         </scene>
     </scenes>
     <resources>
