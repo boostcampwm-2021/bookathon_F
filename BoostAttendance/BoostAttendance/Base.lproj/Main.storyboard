@@ -78,10 +78,10 @@
             </objects>
             <point key="canvasLocation" x="60.869565217391312" y="54.910714285714285"/>
         </scene>
-        <!--View Controller-->
+        <!--Check In Out View Controller-->
         <scene sceneID="4kb-6M-9M9">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="15g-Ia-7RM" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="15g-Ia-7RM" customClass="CheckInOutViewController" customModule="BoostAttendance" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TxH-91-8qP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

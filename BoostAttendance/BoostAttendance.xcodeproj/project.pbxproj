@@ -16,6 +16,7 @@
 		F75DBA5C26FC8D5000904645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F75DBA5A26FC8D5000904645 /* LaunchScreen.storyboard */; };
 		F75DBA6426FC8D8400904645 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F75DBA6326FC8D8400904645 /* GoogleService-Info.plist */; };
 		F7DC806826FCB78300DB539F /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DC806726FCB78300DB539F /* UIViewExtension.swift */; };
+		F7DC806A26FCC37400DB539F /* CheckInOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DC806926FCC37400DB539F /* CheckInOutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		F75DBA5D26FC8D5000904645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F75DBA6326FC8D8400904645 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F7DC806726FCB78300DB539F /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		F7DC806926FCC37400DB539F /* CheckInOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInOutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				F7DC806726FCB78300DB539F /* UIViewExtension.swift */,
 				F75DBA5326FC8D4F00904645 /* ViewController.swift */,
 				F75DBA5526FC8D4F00904645 /* Main.storyboard */,
+				F7DC806926FCC37400DB539F /* CheckInOutViewController.swift */,
 				F75DBA5826FC8D5000904645 /* Assets.xcassets */,
 				F75DBA5A26FC8D5000904645 /* LaunchScreen.storyboard */,
 				F75DBA6326FC8D8400904645 /* GoogleService-Info.plist */,
@@ -215,6 +218,7 @@
 				F75DBA5426FC8D4F00904645 /* ViewController.swift in Sources */,
 				F75DBA5026FC8D4F00904645 /* AppDelegate.swift in Sources */,
 				F7DC806826FCB78300DB539F /* UIViewExtension.swift in Sources */,
+				F7DC806A26FCC37400DB539F /* CheckInOutViewController.swift in Sources */,
 				F75DBA5226FC8D4F00904645 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
