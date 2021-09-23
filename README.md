@@ -26,11 +26,16 @@
 ### 💻 사용 기술/라이브러리
 
 * 슬랙 스레드 크롤링 (https://api.slack.com/)
+
   boostcamp 멤버십 workspace 내의 check-in-out 으로 접근하는 방법
+  
   crontab
+  
   지정된 시간에 DB로 크롤링 하는 역할
+  
   python 사용
   
 * 크롤링한 데이터 앱으로 표현하기
+
   iOS / Swift
   
