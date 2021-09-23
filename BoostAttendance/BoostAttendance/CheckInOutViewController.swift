@@ -16,6 +16,8 @@ enum boostColor:Int {
 class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource {
     
     @IBOutlet weak var calendarView: FSCalendar!
+    @IBOutlet weak var totalAttendance: UILabel?
+    @IBOutlet weak var totalAbsence: UILabel?
     private var currentPage: Date?
     private lazy var today: Date = {
         return Date()
@@ -30,6 +32,29 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
 //        dateFormatter.dateFormat = "yyyy-MM-dd"
         calendarView.delegate = self
         calendarView.dataSource = self
+        
+        self.navigationController?.navigationBar.topItem?.title = ""
+        print(UserDefaults.standard.value(forKey: "myId"))
+        
+        
+        if let attendInfo = Attendance() {
+            totalAttendance?.text = attendInfo
+        }
+        if let absenceInfo = Absence() {
+            totalAbsence?.text = absenceInfo
+        }
+    }
+    
+    private func Attendance() -> String? {
+        var count: Int = 0
+        let totalCount: Int = 0
+        return "\(count) / \(totalCount)"
+    }
+    
+    private func Absence() -> String? {
+        var count: Int = 0
+        
+        return "\(count) / 5"
     }
     
     func calendarDateColorSetting() {

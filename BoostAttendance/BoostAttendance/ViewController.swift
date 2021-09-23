@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.bringCampers()
         letsGoButton.isEnabled = false
         letsGoButton.backgroundColor = UIColor(rgb: .main, alpha: 0.3)
         
@@ -27,7 +28,18 @@ class ViewController: UIViewController {
         camperIDPickerView.tintColor = .clear
         createPickerView()
         dismissPickerView()
-
+    }
+    
+    private func bringCampers() {
+        if let campers = UserDefaults.standard.stringArray(forKey: "campers"),
+           !campers.isEmpty {
+            self.camperIDList = campers
+        }else{
+            self.bringCampersFromDB()
+        }
+    }
+    
+    private func bringCampersFromDB(){
         db.collection("CamperId").getDocuments(completion: { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -37,8 +49,20 @@ class ViewController: UIViewController {
                     campers.append(document.documentID)
                 }
                 self.camperIDList = campers
+                UserDefaults.standard.set(self.camperIDList, forKey: "campers")
             }
         })
+    }
+    
+    @IBAction func letsGoTouched(_ sender: Any) {
+        guard let text = camperIDPickerView.text else { return }
+        UserDefaults.standard.setValue(text, forKey: "myId")
+        self.moveToCalender()
+    }
+    
+    private func moveToCalender(){
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CheckInOutViewController") as? CheckInOutViewController else { return }
+        show(vc, sender: self)
     }
 }
 
