@@ -97,10 +97,12 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
             if let date = data["Date"] as? String {
                 var day: Date? = nil
                 self.db.collection("Date").document(date).getDocument(completion: { (document, error) in
-                     if let document = document, document.exists {
-                         day = (document.data()?["Date"] as? Timestamp)?.dateValue()
-                     }
-                     if let day = day {
+                    var isCheckInOnly = false
+                    if let document = document, document.exists {
+                        day = (document.data()?["Date"] as? Timestamp)?.dateValue()
+                        isCheckInOnly = (document.data()?["CheckInOnly"] as? Bool) ?? false
+                    }
+                    if let day = day {
                          var check = true
                          if ((data["CheckInTime"]) is Timestamp) {
                              self.drawDate(date: day, image: "checkin")
@@ -109,7 +111,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
                          }
                          if (data["CheckOutTime"] is Timestamp) {
                              self.drawDate(date: day, image: "checkout")
-                         }else {
+                         }else if(!isCheckInOnly){
                              check = false
                          }
                          if check == false {
