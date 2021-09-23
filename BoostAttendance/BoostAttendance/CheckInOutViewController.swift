@@ -18,11 +18,8 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
     @IBOutlet weak var calendarView: FSCalendar!
     @IBOutlet weak var totalAttendance: UILabel?
     @IBOutlet weak var totalAbsence: UILabel?
-    private var currentPage: Date?
-    private lazy var today: Date = {
-        return Date()
-        
-    }()
+    
+    private var camperId: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,9 +31,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         calendarView.dataSource = self
         
         self.navigationController?.navigationBar.topItem?.title = ""
-        print(UserDefaults.standard.value(forKey: "myId"))
-        
-        
+        self.camperId = UserDefaults.standard.value(forKey: "myId") as? String
         if let attendInfo = Attendance() {
             totalAttendance?.text = attendInfo
         }

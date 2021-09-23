@@ -30,6 +30,12 @@ class ViewController: UIViewController {
         dismissPickerView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDefaults.standard.value(forKey: "myId") != nil {
+            self.moveToCalender()
+        }
+    }
+    
     private func bringCampers() {
         if let campers = UserDefaults.standard.stringArray(forKey: "campers"),
            !campers.isEmpty {
