@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		F75DBA5926FC8D5000904645 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F75DBA5826FC8D5000904645 /* Assets.xcassets */; };
 		F75DBA5C26FC8D5000904645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F75DBA5A26FC8D5000904645 /* LaunchScreen.storyboard */; };
 		F75DBA6426FC8D8400904645 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F75DBA6326FC8D8400904645 /* GoogleService-Info.plist */; };
+		F7DC806826FCB78300DB539F /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7DC806726FCB78300DB539F /* UIViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		F75DBA5B26FC8D5000904645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F75DBA5D26FC8D5000904645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F75DBA6326FC8D8400904645 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F7DC806726FCB78300DB539F /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +52,6 @@
 				1C5EB9079246A56430A9FA62 /* Pods-BoostAttendance.debug.xcconfig */,
 				9DF591B7B2B66ADEEE192111 /* Pods-BoostAttendance.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -85,6 +86,7 @@
 			children = (
 				F75DBA4F26FC8D4F00904645 /* AppDelegate.swift */,
 				F75DBA5126FC8D4F00904645 /* SceneDelegate.swift */,
+				F7DC806726FCB78300DB539F /* UIViewExtension.swift */,
 				F75DBA5326FC8D4F00904645 /* ViewController.swift */,
 				F75DBA5526FC8D4F00904645 /* Main.storyboard */,
 				F75DBA5826FC8D5000904645 /* Assets.xcassets */,
@@ -212,6 +214,7 @@
 			files = (
 				F75DBA5426FC8D4F00904645 /* ViewController.swift in Sources */,
 				F75DBA5026FC8D4F00904645 /* AppDelegate.swift in Sources */,
+				F7DC806826FCB78300DB539F /* UIViewExtension.swift in Sources */,
 				F75DBA5226FC8D4F00904645 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
