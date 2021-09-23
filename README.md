@@ -2,7 +2,8 @@
 
 | 매일 체크해야 하는 출결관리 | 일일히 확인해야하는 번거로움 |
 | :--------------------: | :------------------:|
-| <img src="https://i.imgur.com/glxiMHT.png" width=350>||
+| <img src="https://i.imgur.com/glxiMHT.png" width=350>|<img src="https://user-images.githubusercontent.com/72058473/134460854-3ab0c0ca-505e-4d3e-9076-4ed5e4b0468c.gif" width=350>|
+
 
 
 
