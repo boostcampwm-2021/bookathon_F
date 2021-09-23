@@ -28,9 +28,7 @@ class ViewController: UIViewController {
         camperIDPickerView.tintColor = .clear
         createPickerView()
         dismissPickerView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        
         if UserDefaults.standard.value(forKey: "myId") != nil {
             self.moveToCalender()
         }
@@ -68,6 +66,7 @@ class ViewController: UIViewController {
     
     private func moveToCalender(){
         guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CheckInOutViewController") as? CheckInOutViewController else { return }
+        vc.navigationController?.navigationBar.topItem?.title = ""
         show(vc, sender: self)
     }
 }

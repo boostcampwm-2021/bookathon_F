@@ -7,6 +7,7 @@
 
 import UIKit
 import FSCalendar
+import FirebaseFirestore
 
 enum boostColor:Int {
     case main = 0x0055FB
@@ -16,10 +17,13 @@ enum boostColor:Int {
 class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendarDataSource {
     
     @IBOutlet weak var calendarView: FSCalendar!
+    @IBOutlet weak var myAttendance: UILabel?
     @IBOutlet weak var totalAttendance: UILabel?
-    @IBOutlet weak var totalAbsence: UILabel?
+    @IBOutlet weak var myAbsence: UILabel?
     
     private var camperId: String? = nil
+    
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,27 +33,41 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
 //        dateFormatter.dateFormat = "yyyy-MM-dd"
         calendarView.delegate = self
         calendarView.dataSource = self
-        
-        self.navigationController?.navigationBar.topItem?.title = ""
         self.camperId = UserDefaults.standard.value(forKey: "myId") as? String
-        if let attendInfo = Attendance() {
-            totalAttendance?.text = attendInfo
-        }
-        if let absenceInfo = Absence() {
-            totalAbsence?.text = absenceInfo
-        }
-    }
-    
-    private func Attendance() -> String? {
-        var count: Int = 0
-        let totalCount: Int = 0
-        return "\(count) / \(totalCount)"
-    }
-    
-    private func Absence() -> String? {
-        var count: Int = 0
+        checkAttendance()
         
-        return "\(count) / 5"
+//        todo - remove back text
+//        self.navigationController?.navigationBar.topItem?.title = ""
+    }
+    
+    private func checkAttendance() -> Void {
+        guard let camperId = camperId else { return }
+        
+        Firestore.firestore().collection("Attendance").document(camperId).getDocument(completion: { (document, error) in
+            if let document = document, document.exists {
+                let count = document.data()?["Count"] as? Int ?? 0
+                if let text = self.totalAttendance?.text,
+                   let totalCount = Int(text){
+                    self.myAbsence?.text = "\(totalCount - count)"
+                }
+                self.myAttendance?.text = "\(count)"
+            } else {
+                print("Document does not exist")
+            }
+        })
+        
+        Firestore.firestore().collection("AttendanceCount").document("1").getDocument(completion: { (document, error) in
+            if let document = document, document.exists {
+                let totalCount = document.data()?["Count"] as? Int ?? 0
+                if let text = self.myAttendance?.text,
+                   let count = Int(text){
+                    self.myAbsence?.text = "\(totalCount - count)"
+                }
+                self.totalAttendance?.text = "\(totalCount)"
+            } else {
+                print("Document does not exist")
+            }
+        })
     }
     
     func calendarDateColorSetting() {
@@ -73,22 +91,3 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         calendarView.allowsSelection = false
     }
 }
-
-//extension CheckInOutViewController {
-//    @IBAction func lastMonth(_ sender: Any) {
-//        self.moveCurrentPage(moveUp: false)
-//    }
-//
-//    @IBAction func nextMonth(_ sender: Any) {
-//        self.moveCurrentPage(moveUp: true)
-//    }
-//
-//    func moveCurrentPage(moveUp: Bool) {
-//        let cal = Calendar.current
-//        var dateComponents = DateComponents()
-//        dateComponents.month = moveUp ? 1 : -1
-//
-//        self.currentPage = cal.date(byAdding: dateComponents, to: self.currentPage ?? self.today)
-//        self.calendarView.setCurrentPage(self.currentPage!, animated: true)
-//    }
-//}
