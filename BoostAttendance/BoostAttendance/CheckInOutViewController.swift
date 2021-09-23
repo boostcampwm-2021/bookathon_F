@@ -35,6 +35,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         calendarView.dataSource = self
         self.camperId = UserDefaults.standard.value(forKey: "myId") as? String
         checkAttendance()
+        bringCalender()
         
 //        todo - remove back text
 //        self.navigationController?.navigationBar.topItem?.title = ""
@@ -43,7 +44,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
     private func checkAttendance() -> Void {
         guard let camperId = camperId else { return }
         
-        Firestore.firestore().collection("Attendance").document(camperId).getDocument(completion: { (document, error) in
+        self.db.collection("Attendance").document(camperId).getDocument(completion: { (document, error) in
             if let document = document, document.exists {
                 let count = document.data()?["Count"] as? Int ?? 0
                 if let text = self.totalAttendance?.text,
@@ -56,7 +57,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
             }
         })
         
-        Firestore.firestore().collection("AttendanceCount").document("1").getDocument(completion: { (document, error) in
+        self.db.collection("AttendanceCount").document("1").getDocument(completion: { (document, error) in
             if let document = document, document.exists {
                 let totalCount = document.data()?["Count"] as? Int ?? 0
                 if let text = self.myAttendance?.text,
@@ -68,6 +69,57 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
                 print("Document does not exist")
             }
         })
+    }
+    
+    private func bringCalender() -> Void {
+        guard let camperId = camperId else { return }
+        
+        self.db.collection("AttendanceDetail").whereField("CamperId", isEqualTo: camperId).getDocuments(completion: { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                let checkView = UIView(frame: CGRect.zero)
+                for document in querySnapshot!.documents {
+                    let data = document.data()
+                    var day: Date? = nil
+                    if let date = data["Date"] as? String {
+                         self.db.collection("Date").document(date).getDocument(completion: { (document, error) in
+                             if let document = document, document.exists {
+                                 day = (document.data()?["Date"] as? Timestamp)?.dateValue()
+                             }
+                             if let day = day {
+                                 var check = true
+                                 if (data["CheckInTime"] is Timestamp) {
+                                     let view = self.drawView(date: day, image: "checkin")
+                                     checkView.addSubview(view)
+                                 }else{
+                                     check = false
+                                 }
+                                 if (data["CheckOutTime"] is Timestamp) {
+                                     let view = self.drawView(date: day, image: "checkout")
+                                     checkView.addSubview(view)
+                                 }else {
+                                     check = false
+                                 }
+                                 if check == false {
+                                     let view = self.drawView(date: day, image: "absent")
+                                     checkView.addSubview(view)
+                                 }
+                             }
+                         })
+                    }
+                }
+                self.view.addSubview(checkView)
+            }
+        })
+    }
+    
+    private func drawView(date: Date, image: String) -> UIView{
+        let checkInView = UIImageView(frame: self.calendarView.frame(for: date))
+        if let image = UIImage(named: image){
+            checkInView.image = image
+        }
+        return checkInView
     }
     
     func calendarDateColorSetting() {
