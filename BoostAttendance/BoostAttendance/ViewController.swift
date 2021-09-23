@@ -12,10 +12,9 @@ import FirebaseFirestore
 
 class ViewController: UIViewController {
 
-    let camperIDList = ["S013_김태훈", "S036_이나정", "S045_이지수"]
+    var camperIDList = [String]()
     @IBOutlet weak var camperIDPickerView: UITextField!
     @IBOutlet weak var letsGoButton: UIButton!
-    
     
     let db = Firestore.firestore()
     
@@ -29,15 +28,17 @@ class ViewController: UIViewController {
         createPickerView()
         dismissPickerView()
 
-        let doc = db.collection("Attendance").document("S045")
-        doc.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
+        db.collection("CamperId").getDocuments(completion: { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
             } else {
-                print("Document does not exist")
+                var campers = [String]()
+                for document in querySnapshot!.documents {
+                    campers.append(document.documentID)
+                }
+                self.camperIDList = campers
             }
-        }
+        })
     }
 }
 
