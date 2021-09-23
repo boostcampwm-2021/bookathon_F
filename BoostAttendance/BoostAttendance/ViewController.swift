@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseDatabase
 import Firebase
+import FirebaseFirestore
 
 class ViewController: UIViewController {
 
@@ -16,7 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var letsGoButton: UIButton!
     
     
-    var ref: DatabaseReference!
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +29,15 @@ class ViewController: UIViewController {
         createPickerView()
         dismissPickerView()
 
-        
-        ref = Database.database().reference()
-        ref.child("Attendance").observeSingleEvent(of: .value, with: { (snapshot) in
-            for child in snapshot.children {
-                let snap = child as! DataSnapshot
-                print(snap.key)
+        let doc = db.collection("Attendance").document("S045")
+        doc.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+            } else {
+                print("Document does not exist")
             }
-        })
+        }
     }
 }
 
