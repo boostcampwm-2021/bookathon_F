@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rXF-9i-OIK">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
@@ -63,13 +63,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="Ga3-Q6-gmY" kind="show" id="eKH-LQ-bat"/>
+                                    <segue destination="15g-Ia-7RM" kind="show" id="VAW-xq-EYd"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="WY1-qF-Pjw"/>
                     <connections>
                         <outlet property="camperIDPickerView" destination="if2-B7-YgZ" id="cyp-hb-jEs"/>
                         <outlet property="letsGoButton" destination="h4b-lh-7Nr" id="OJV-1X-AQn"/>
@@ -77,14 +78,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="54" y="63"/>
+            <point key="canvasLocation" x="1731.8840579710147" y="62.946428571428569"/>
         </scene>
         <!--Check_In Check_Out-->
         <scene sceneID="4kb-6M-9M9">
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="15g-Ia-7RM" customClass="CheckInOutViewController" customModule="BoostAttendance" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TxH-91-8qP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="⚠️ 1~5분마다 업데이트 됩니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ZT-bx-d32">
@@ -262,7 +263,6 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Check_In Check_Out" id="AKX-P8-rRo">
-                        <barButtonItem key="leftBarButtonItem" title="Back" image="chevron.backward" catalog="system" id="Wil-qO-JOC"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="arrow.counterclockwise" catalog="system" id="BUr-Ta-LfP"/>
                     </navigationItem>
                     <connections>
@@ -271,33 +271,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1oC-r4-TNn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1747.826086956522" y="62.946428571428569"/>
+            <point key="canvasLocation" x="2657.971014492754" y="62.946428571428569"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="NEr-pr-xOx">
+        <scene sceneID="wrL-NI-VeW">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Ga3-Q6-gmY" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rXF-9i-OIK" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="Bvf-q9-4IU"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="E4E-yF-J5f">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s1t-HC-qWL">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="15g-Ia-7RM" kind="relationship" relationship="rootViewController" id="7wG-jJ-CH0"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="CXz-Ys-SFk"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uFa-qZ-QMN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zC6-u1-QeA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="837.68115942028987" y="62.946428571428569"/>
+            <point key="canvasLocation" x="821.73913043478262" y="62.946428571428569"/>
         </scene>
     </scenes>
     <resources>
         <image name="Boostcamp_Logo" width="350.5" height="109.5"/>
         <image name="arrow.counterclockwise" catalog="system" width="115" height="128"/>
         <image name="calendarInfo" width="226" height="34"/>
-        <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
