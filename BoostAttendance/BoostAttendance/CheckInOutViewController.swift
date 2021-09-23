@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FSCalendar
 
 class CheckInOutViewController: UIViewController {
 
