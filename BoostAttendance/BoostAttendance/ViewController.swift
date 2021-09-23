@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         letsGoButton.isEnabled = false
-        letsGoButton.backgroundColor = UIColor(rgb: 0x0055FB, alpha: 0.3)
+        letsGoButton.backgroundColor = UIColor(rgb: .main, alpha: 0.3)
         
         // picker View
         camperIDPickerView.tintColor = .clear
@@ -57,7 +57,7 @@ extension ViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPickerVie
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         letsGoButton.isEnabled = true
-        letsGoButton.backgroundColor = UIColor(rgb: 0x0055FB, alpha: 1.0)
+        letsGoButton.backgroundColor = UIColor(rgb: .main, alpha: 1.0)
         camperIDPickerView.text = camperIDList[row]
         camperIDPickerView.font = UIFont.systemFont(ofSize: 17)
     }
@@ -91,11 +91,11 @@ extension UIColor {
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: CGFloat(alpha))
    }
 
-    convenience init(rgb: Int, alpha: Float) {
+    convenience init(rgb: boostColor, alpha: Float) {
        self.init(
-           red: (rgb >> 16) & 0xFF,
-           green: (rgb >> 8) & 0xFF,
-           blue: rgb & 0xFF,
+        red: (rgb.rawValue >> 16) & 0xFF,
+           green: (rgb.rawValue >> 8) & 0xFF,
+           blue: rgb.rawValue & 0xFF,
            alpha: alpha
        )
    }
