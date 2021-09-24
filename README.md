@@ -172,7 +172,7 @@ pod install # m1 칩에서 오류가 발생한다면 arch -x86_64 pod install �
 
 <br>
 
-## 🥕 개발 후기
+## 🥕 개발 중 어려웠던 점
 ### Lambda 최대 용량 초과 😢
 <img src="https://i.imgur.com/h3fJjWD.png" width="500">
 
