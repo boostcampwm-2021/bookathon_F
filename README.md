@@ -173,6 +173,16 @@ pod install # m1 칩에서 오류가 발생한다면 arch -x86_64 pod install �
 <br>
 
 ## 🥕 개발 후기
+### Lambda 최대 용량 초과 😢
+<img src="https://i.imgur.com/h3fJjWD.png" width="500">
+
+  **눈물겨운 개발 과정💦**
+  1. gRPC 모듈이 C기반이여서 Python으로 세팅된 Lambda에서는 동작 불가 
+  2. 도커로 가상 환경을 구축한 후 필요한 패키지 의존성만 추출 [참고사이트](https://stackoverflow.com/questions/66291208/firebase-admin-with-aws-lambda-python)
+  3. 용량이 커 zip 파일 업로드 불가능
+  4. S3에 업로드 -> 50MB 초과로 에러
+  5. EC2로 전환
+
 ### 파이어베이스 기본 용량 초과 😮
   체크인 - 체크아웃 스레드의 댓글이 각 200여개에 이름
   
