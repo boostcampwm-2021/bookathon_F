@@ -148,12 +148,12 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         switch image {
         case "checkin":
             x += 0
-            y += -3
+            y += -2
         case "checkout":
-            x += 4
-            y += 3
+            x += 5
+            y += 2
         default:
-            x += 2
+            x += 2.5
             y += 0
         }
         frame.origin = CGPoint(x: frame.origin.x + x, y: frame.origin.y + y)
@@ -185,7 +185,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         calendarView.appearance.headerTitleFont = UIFont.boldSystemFont(ofSize: 18)
         calendarView.appearance.weekdayTextColor = UIColor(rgb: .main, alpha: 1.0) // Sun, Mon...
         // 년월에 흐릿하게 보이는 애들 없애기
-        calendarView.appearance.headerMinimumDissolvedAlpha = 0.2
+        calendarView.appearance.headerMinimumDissolvedAlpha = 0.1
     }
     
     private func deselectDate() {

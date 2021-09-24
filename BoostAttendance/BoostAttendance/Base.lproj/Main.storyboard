@@ -324,7 +324,7 @@
     <resources>
         <image name="Boostcamp_Logo" width="350.5" height="109.5"/>
         <image name="arrow.counterclockwise" catalog="system" width="115" height="128"/>
-        <image name="calendarInfo" width="226" height="34"/>
+        <image name="calendarInfo" width="113" height="17"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
