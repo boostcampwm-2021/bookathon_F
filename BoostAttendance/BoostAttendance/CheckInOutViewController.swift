@@ -28,22 +28,20 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        calendarDateColorSetting()
-        deselectDate()
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-        calendarView.rowHeight = 50
-        calendarView.delegate = self
-        calendarView.dataSource = self
+        self.calendarDateColorSetting()
+        self.deselectDate()
+        self.calendarView.rowHeight = 50
+        self.calendarView.delegate = self
+        self.calendarView.dataSource = self
         self.camperId = UserDefaults.standard.value(forKey: "myId") as? String
-        checkAttendance()
-        bringCalender()
+        self.checkAttendance()
+        self.bringCalender()
         
 //        todo - remove back text
 //        self.navigationController?.navigationBar.topItem?.title = ""
     }
     
-    @IBAction func resetButtonTouched(sender: Any?){
+    @IBAction private func resetButtonTouched(sender: Any?){
         guard let camperId = camperId else { return }
         
         let dateFormatter = DateFormatter()
@@ -56,6 +54,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
                 self.drawCalender(data: querySnapshot?.documents, reset: true)
             })
         }
+        self.checkAttendance()
     }
     
     private func checkAttendance() -> Void {
@@ -173,7 +172,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         }
     }
     
-    func calendarDateColorSetting() {
+    private func calendarDateColorSetting() {
         calendarView.backgroundColor = UIColor(rgb: .main, alpha: 0.05)
         calendarView.scrollDirection = .horizontal // 가로 스크롤
         calendarView.appearance.titleDefaultColor = UIColor(rgb: .back, alpha: 1.0) // 평일 날짜색
@@ -189,7 +188,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         calendarView.appearance.headerMinimumDissolvedAlpha = 0.2
     }
     
-    func deselectDate() {
+    private func deselectDate() {
         calendarView.today = nil
         calendarView.allowsSelection = false
     }

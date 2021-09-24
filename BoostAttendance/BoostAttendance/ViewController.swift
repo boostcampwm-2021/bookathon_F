@@ -21,13 +21,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bringCampers()
-        letsGoButton.isEnabled = false
-        letsGoButton.backgroundColor = UIColor(rgb: .main, alpha: 0.3)
+        self.letsGoButton.isEnabled = false
+        self.letsGoButton.backgroundColor = UIColor(rgb: .main, alpha: 0.3)
         
         // picker View
-        camperIDPickerView.tintColor = .clear
-        createPickerView()
-        dismissPickerView()
+        self.camperIDPickerView.tintColor = .clear
+        self.createPickerView()
+        self.dismissPickerView()
         
         if UserDefaults.standard.value(forKey: "myId") != nil {
             self.moveToCalender()
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     private func bringCampersFromDB(){
-        db.collection("CamperId").getDocuments(completion: { (querySnapshot, err) in
+        self.db.collection("CamperId").getDocuments(completion: { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         })
     }
     
-    @IBAction func letsGoTouched(_ sender: Any) {
+    @IBAction private func letsGoTouched(_ sender: Any) {
         guard let text = camperIDPickerView.text else { return }
         UserDefaults.standard.setValue(text, forKey: "myId")
         self.moveToCalender()
@@ -86,16 +86,16 @@ extension ViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPickerVie
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        letsGoButton.isEnabled = true
-        letsGoButton.backgroundColor = UIColor(rgb: .main, alpha: 1.0)
-        camperIDPickerView.text = camperIDList[row]
-        camperIDPickerView.font = UIFont.systemFont(ofSize: 17)
+        self.letsGoButton.isEnabled = true
+        self.letsGoButton.backgroundColor = UIColor(rgb: .main, alpha: 1.0)
+        self.camperIDPickerView.text = camperIDList[row]
+        self.camperIDPickerView.font = UIFont.systemFont(ofSize: 17)
     }
     
     func createPickerView() {
         let pickerView = UIPickerView()
         pickerView.delegate = self
-        camperIDPickerView.inputView = pickerView
+        self.camperIDPickerView.inputView = pickerView
     }
     
     func dismissPickerView() {
@@ -104,7 +104,7 @@ extension ViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPickerVie
         let button = UIBarButtonItem(title: "선택", style: .plain, target: self, action: #selector(self.action))
         toolBar.setItems([button], animated: true)
         toolBar.isUserInteractionEnabled = true
-        camperIDPickerView.inputAccessoryView = toolBar
+        self.camperIDPickerView.inputAccessoryView = toolBar
     }
     
     @objc func action() {
