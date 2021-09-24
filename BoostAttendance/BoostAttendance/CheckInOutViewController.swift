@@ -125,12 +125,12 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
                         }else{
                             check = false
                         }
-                        if (data["CheckOutTime"] is Timestamp) {
+                        if (data["CheckOutTime"] is Timestamp || isCheckInOnly) {
                             self.drawDate(cell: cell, image: "checkout")
-                        }else if(!isCheckInOnly){
+                        }else{
                             check = false
                         }
-                        if check == false {
+                        if !check {
                             self.drawDate(cell: cell, image: "absent")
                         }
                     }
