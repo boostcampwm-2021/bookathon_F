@@ -24,7 +24,7 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
     private var camperId: String? = nil
     private var rollBook: [QueryDocumentSnapshot]? = nil
     
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +41,21 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         
 //        todo - remove back text
 //        self.navigationController?.navigationBar.topItem?.title = ""
+    }
+    
+    @IBAction func resetButtonTouched(sender: Any?){
+        guard let camperId = camperId else { return }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyMMdd"
+        let today = dateFormatter.string(from: Date())
+        if let date = dateFormatter.calendar.date(byAdding: DateComponents(day: -1), to: Date()){
+            let yesterday = dateFormatter.string(from: date)
+            self.db.collection("AttendanceDetail").whereField("CamperId", isEqualTo: camperId).whereField("Date", in : [today, yesterday])
+                .getDocuments(completion: { (querySnapshot, err) in
+                self.drawCalender(data: querySnapshot?.documents, reset: true)
+            })
+        }
     }
     
     private func checkAttendance() -> Void {
@@ -77,21 +92,21 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
         guard let camperId = camperId else { return }
         
         if self.rollBook != nil {
-            self.drawCalender()
+            self.drawCalender(data: self.rollBook)
         } else {
             self.db.collection("AttendanceDetail").whereField("CamperId", isEqualTo: camperId).getDocuments(completion: { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
                     self.rollBook = querySnapshot!.documents
-                    self.drawCalender()
+                    self.drawCalender(data: self.rollBook)
                 }
             })
         }
     }
     
-    private func drawCalender(){
-        guard let rollBook = self.rollBook else { return }
+    private func drawCalender(data: [QueryDocumentSnapshot]?, reset: Bool = false){
+        guard let rollBook = data else { return }
         for snapshot in rollBook {
             let data:[String:Any] = snapshot.data()
             if let date = data["Date"] as? String {
@@ -102,30 +117,31 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
                         day = (document.data()?["Date"] as? Timestamp)?.dateValue()
                         isCheckInOnly = (document.data()?["CheckInOnly"] as? Bool) ?? false
                     }
-                    if let day = day {
-                         var check = true
-                         if ((data["CheckInTime"]) is Timestamp) {
-                             self.drawDate(date: day, image: "checkin")
-                         }else{
-                             check = false
-                         }
-                         if (data["CheckOutTime"] is Timestamp) {
-                             self.drawDate(date: day, image: "checkout")
-                         }else if(!isCheckInOnly){
-                             check = false
-                         }
-                         if check == false {
-                             self.drawDate(date: day, image: "absent")
-                         }
-                     }
-                 })
+                    if let day = day,
+                       let cell = self.calendarView.cell(for: day, at: .current) {
+                        if reset { self.removeIcons(cell: cell) }
+                        var check = true
+                        if ((data["CheckInTime"]) is Timestamp) {
+                            self.drawDate(cell: cell, image: "checkin")
+                        }else{
+                            check = false
+                        }
+                        if (data["CheckOutTime"] is Timestamp) {
+                            self.drawDate(cell: cell, image: "checkout")
+                        }else if(!isCheckInOnly){
+                            check = false
+                        }
+                        if check == false {
+                            self.drawDate(cell: cell, image: "absent")
+                        }
+                    }
+                })
             }
         }
-        
     }
     
-    private func drawDate(date: Date, image: String){
-        guard let cell = self.calendarView.cell(for: date, at: .current) else { return }
+    
+    private func drawDate(cell: FSCalendarCell, image: String){
         var frame = CGRect.zero
         frame.size = CGSize(width: 35, height: 35)
         var x:CGFloat = 8
@@ -147,6 +163,14 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
             checkInView.image = image
         }
         cell.addSubview(checkInView)
+    }
+    
+    private func removeIcons(cell: FSCalendarCell){
+        if cell.subviews.count > 1 {
+            for (index, view) in cell.subviews.enumerated() where index != 0 {
+                view.removeFromSuperview()
+            }
+        }
     }
     
     func calendarDateColorSetting() {
@@ -171,14 +195,10 @@ class CheckInOutViewController: UIViewController, FSCalendarDelegate, FSCalendar
     }
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        if cell.subviews.count > 1 {
-            for (index, view) in cell.subviews.enumerated() where index != 0 {
-                view.removeFromSuperview()
-            }
-        }
+        self.removeIcons(cell: cell)
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        self.drawCalender()
+        self.drawCalender(data: self.rollBook)
     }
 }
